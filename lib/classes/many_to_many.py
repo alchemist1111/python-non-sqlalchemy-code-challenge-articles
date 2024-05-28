@@ -13,30 +13,7 @@ class Article:
         author._articles.append(self)
         magazine._articles.append(self)
         Article.all.append(self)
-
-    # @property
-    # def title(self):
-    #     return self._title
-    
-    # @property
-    # def author(self):
-    #     return self._author
-    
-    # @property
-    # def magazine(self):
-    #     return self._magazine
-    
-    # @magazine.setter
-    # def magazine(self, value):
-    #     if not isinstance(value, Magazine):
-    #         raise ValueError("Magazine must be an instance of Magazine class.")
-    #     self._magazine = value
-
-    # @author.setter
-    # def author(self, value):
-    #     if not isinstance(value, Author):
-    #         raise ValueError("Author must be an instance of Author class.")
-    #     self._author = value    
+   
         
 class Author:
     def __init__(self, name=""):
@@ -45,10 +22,20 @@ class Author:
         self.name = name
         self._articles = []
   
-
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        if not isinstance(name, str) or len(name) == 0:
+            raise ValueError("Name must be a non-empty string.")
+        self._name = name  
+    
     def articles(self):
         return self._articles
-
+    
+    
     def magazines(self):
          return list(set(article.magazine for article in self._articles))
 
@@ -74,16 +61,15 @@ class Magazine:
         self._articles = []
         self.all_magazines.append(self)
 
-
     @property
     def name(self):
         return self._name
 
     @name.setter
-    def name(self, value):
-        if not isinstance(value, str) or len(value) < 2 or len(value) > 16:
+    def name(self, name):
+        if not isinstance(name, str) or len(name) < 2 or len(name) > 16:
             raise ValueError("Magazine name must be a string between 2 and 16 characters")
-        self._name = value
+        self._name = name   
 
     def articles(self):
         return self._articles
@@ -91,12 +77,12 @@ class Magazine:
     @property
     def category(self):
         return self._category
-    
     @category.setter
-    def category(self, value):
-        if not isinstance(value, str) or len(value) == 0:
+    def category(self, name=""):
+        if not isinstance(name, str) or len(name) == 0:
             raise ValueError("Category must be a non-empty string.")
-        self._category = value
+        self._category = name
+  
 
     def contributors(self):
          return list(set(article.author for article in self._articles))
